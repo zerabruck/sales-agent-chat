@@ -103,9 +103,7 @@ export default function Chat() {
   };
   return (
     <div
-      className={`flex  overflow-y-auto  pt-8 ${
-        messages.length === 0 && "h-screen"
-      } mx-auto flex-col  items-center justify-center`}
+      className={`flex  overflow-y-auto  pt-8 mx-auto flex-col  items-center justify-center`}
     >
       <div
         className={`transition-all lg:w-[60rem] w-full ${
@@ -128,7 +126,7 @@ export default function Chat() {
       </div>
       <div className={`${messages.length !== 0 && "fixed bottom-0"} w-full`}>
         {messages.length === 0 && (
-          <h2 className="text-center text-4xl font-bold  mb-5">
+          <h2 className="text-center text-4xl font-bold  mb-10 mt-[30vh]">
             Your Next Car, Just a Chat Away!
           </h2>
         )}

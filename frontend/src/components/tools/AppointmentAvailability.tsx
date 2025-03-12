@@ -12,25 +12,25 @@ interface AppointmentAvailabilityProps {
 export default function AppointmentAvailability({ data, onSelect }: AppointmentAvailabilityProps) {
   const slots = parseTimeSlots(data);
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 max-w-md">
+    <div className="bg-[#212124] rounded-lg shadow-md p-4 max-w-md">
       <div className="flex items-center space-x-2 mb-4">
-        <CalendarIcon className="h-5 w-5 text-gray-500" />
-        <h3 className="text-lg font-semibold text-gray-800">Available Time Slots</h3>
+        <CalendarIcon className="h-5 w-5 " />
+        <h3 className="text-lg font-semibold">Available Time Slots</h3>
       </div>
-      <div className="space-y-3">
+      <div className="grid gap-3 grid-cols-2">
         {slots.map((slot, index) => (
           <div
             key={`${slot.date}-${slot.time}-${index}`}
-            className={`flex items-center justify-between p-3 rounded-lg border ${
+            className={`flex w-[12rem] items-center shadow shadow-[#3B1C32] border-[#3B1C32] justify-between p-3 rounded-lg border ${
               slot.available
-                ? 'border-green-200 bg-green-50 cursor-pointer hover:bg-green-100'
+                ? '  cursor-pointer hover:shadow-2xl hover:bg-[#3B1C32]'
                 : 'border-red-200 bg-red-50'
             }`}
             onClick={() => slot.available && onSelect?.(slot)}
           >
             <div>
-              <p className="font-medium text-gray-800">{slot.date}</p>
-              <p className="text-sm text-gray-600">{slot.time}</p>
+              <p className="font-medium">{slot.date}</p>
+              <p className="text-sm">{slot.time}</p>
             </div>
             {slot.available ? (
               <CheckCircleIcon className="h-6 w-6 text-green-500" />
