@@ -32,18 +32,16 @@ export default function Message({ message, onSelectTimeSlot }: MessageProps) {
   };
   return (
     <div className={`flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`}>
-      <div className={`flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center ${
-        isUser ? 'bg-blue-100' : 'bg-gray-100'
-      }`}>
+      <div className={`flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center bg-[#212124]`}>
         {isUser ? (
-          <UserIcon className="h-5 w-5 text-blue-600" />
+          <UserIcon className="h-5 w-5  " />
         ) : (
-          <ComputerDesktopIcon className="h-5 w-5 text-gray-600" />
+          <ComputerDesktopIcon className="h-5 w-5 text-[#A64D79]" />
         )}
       </div>
       <div className={`flex flex-col gap-2 max-w-[80%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div className={`rounded-lg px-4 py-2 ${
-          isUser ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'
+          isUser ? ' ' : 'bg-[#212124] '
         }`}>
           {content}
         </div>

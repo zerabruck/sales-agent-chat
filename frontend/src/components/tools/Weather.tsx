@@ -16,9 +16,9 @@ export default function Weather({ data }: WeatherProps) {
   const isGoodWeather = conditions.toLowerCase().includes('clear') || conditions.toLowerCase().includes('sunny') || tempNumber > 20;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 max-w-sm">
+    <div className="bg-[#212124] rounded-lg shadow-md p-4 max-w-sm">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-800">Weather in {location}</h3>
+        <h3 className="text-lg font-semibold ">Weather in {location}</h3>
         {isGoodWeather ? (
           <SunIcon className="h-6 w-6 text-yellow-500" />
         ) : (
@@ -26,7 +26,7 @@ export default function Weather({ data }: WeatherProps) {
         )}
       </div>
       <div className="space-y-2">
-        <p className="text-3xl font-bold text-gray-900">
+        <p className="text-3xl font-bold">
           {temperature}{unit && `\u00b0${unit}`}
         </p>
         {

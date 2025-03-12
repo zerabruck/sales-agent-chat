@@ -1,14 +1,14 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { Message as MessageType } from '../types';
-import Message from './Message';
-import { SSEClient } from '../lib/sse';
-import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import React, { useState, useRef, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { Message as MessageType } from "../types";
+import Message from "./Message";
+import { SSEClient } from "../lib/sse";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 export default function Chat() {
   const [messages, setMessages] = useState<MessageType[]>([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [sessionId] = useState(() => uuidv4());
@@ -17,11 +17,14 @@ export default function Chat() {
   useEffect(() => {
     sseClientRef.current = new SSEClient((event) => {
       switch (event.type) {
-        case 'chunk':
+        case "chunk":
           setMessages((prev) => {
-            
             const lastMessage = prev[prev.length - 1];
-            if (lastMessage && lastMessage.role === 'assistant' && !lastMessage.toolOutput) {
+            if (
+              lastMessage &&
+              lastMessage.role === "assistant" &&
+              !lastMessage.toolOutput
+            ) {
               return [
                 ...prev.slice(0, -1),
                 { ...lastMessage, content: lastMessage.content + event.data },
@@ -29,14 +32,14 @@ export default function Chat() {
             }
             return [
               ...prev,
-              { id: uuidv4(), role: 'assistant', content: event.data },
+              { id: uuidv4(), role: "assistant", content: event.data },
             ];
           });
           break;
-        case 'tool_use':
+        case "tool_use":
           setMessages((prev) => {
             const lastMessage = prev[prev.length - 1];
-            if (lastMessage && lastMessage.role === 'assistant') {
+            if (lastMessage && lastMessage.role === "assistant") {
               return [
                 ...prev.slice(0, -1),
                 { ...lastMessage, toolUse: event.data },
@@ -45,10 +48,10 @@ export default function Chat() {
             return prev;
           });
           break;
-        case 'tool_output':
+        case "tool_output":
           setMessages((prev) => {
             const lastMessage = prev[prev.length - 1];
-            if (lastMessage && lastMessage.role === 'assistant') {
+            if (lastMessage && lastMessage.role === "assistant") {
               return [
                 ...prev.slice(0, -1),
                 { ...lastMessage, toolOutput: event.data },
@@ -57,7 +60,7 @@ export default function Chat() {
             return prev;
           });
           break;
-        case 'end':
+        case "end":
           setIsLoading(false);
           break;
       }
@@ -68,10 +71,10 @@ export default function Chat() {
         sseClientRef.current.disconnect();
       }
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -80,12 +83,12 @@ export default function Chat() {
 
     const userMessage: MessageType = {
       id: uuidv4(),
-      role: 'user',
+      role: "user",
       content: input,
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput('');
+    setInput("");
     setIsLoading(false);
 
     if (sseClientRef.current) {
@@ -94,39 +97,66 @@ export default function Chat() {
   };
 
   const handleSelectTimeSlot = (slot: any) => {
-    setInput(`I'd like to schedule an appointment for ${slot.date} at ${slot.time}`);
+    setInput(
+      `I'd like to schedule an appointment for ${slot.date} at ${slot.time}`
+    );
   };
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
-          <Message
+    <div
+      className={`flex  overflow-y-auto  pt-8 ${
+        messages.length === 0 && "h-screen"
+      } mx-auto flex-col  items-center justify-center`}
+    >
+      <div
+        className={`transition-all lg:w-[60rem] w-full ${
+          messages.length > 0 ? "flex-1" : ""
+        }   px-2 py-4 space-y-6`}
+      >
+        {messages.map((message, index) => (
+          <div
             key={message.id}
-            message={message}
-            onSelectTimeSlot={handleSelectTimeSlot}
-          />
+            className={`${messages.length === index + 1 && "mb-52"}`}
+          >
+            <Message
+              key={message.id}
+              message={message}
+              onSelectTimeSlot={handleSelectTimeSlot}
+            />
+          </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
-      <form onSubmit={handleSubmit} className="p-4 border-t bg-white">
-        <div className="flex gap-4">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
-            className="flex-1 rounded-lg text-black border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <PaperAirplaneIcon className="h-5 w-5" />
-          </button>
-        </div>
-      </form>
+      <div className={`${messages.length !== 0 && "fixed bottom-0"} w-full`}>
+        {messages.length === 0 && (
+          <h2 className="text-center text-4xl font-bold  mb-5">
+            Your Next Car, Just a Chat Away!
+          </h2>
+        )}
+        <form
+          onSubmit={handleSubmit}
+          className="p-4 lg:mb-4  lg:w-[60rem] w-full mx-auto transition-all bg-[#212124] rounded-2xl "
+        >
+          <div className="flex gap-4">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask me about car models, pricing, or schedule a test drive..."
+              className="flex-1 rounded-lg text-white borer border-gry-600 px-4 py-2 focus:outline-none focus:border-[#381a2a] "
+              disabled={isLoading}
+            />
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={` ${
+                input ? " bg-[#6A1E55]" : "bg-[#3B1C32]"
+              } text-white rounded-lg px-4 py-2 hover:bg-[#3B1C32] focus:outline-none focus:ring-2 focus:ring-[#381a2a] disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              <PaperAirplaneIcon className="h-5 w-5" />
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
