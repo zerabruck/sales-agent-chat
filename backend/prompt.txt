@@ -1,0 +1,412 @@
+
+Context: We are Wizeline, a Software Development Company. We have a project profile that needs exploiting to get farming opportunities with the client. The project profile is a merged profile from multiple sources about a project. 
+        
+        Client Name: KPMG
+        Project Name: multirag
+        
+        Review, expand and refine this merged project profile to ensure coherence and completeness.
+        The profile contains information gathered from multiple sources about a project.
+        The goal is to generate insights and offerings that can be used to cross-sell or farm more projects with the client.
+
+        Your task is to:
+        1. Ensure consistency across all sections
+        2. Remove any contradictions
+        3. Combine similar items in lists
+        4. Fill in obvious gaps based on available information
+        5. Refine and expand on items to improve clarity.
+        6. Ensure technical keywords and solution descriptions are accurate
+        7. Make sure pain points and opportunities align
+        8. Verify that the technical landscape matches the project description
+        9. Generate very relevant hypothetical offerings ideas for cross-selling/farming more projects with the client in the hypothetical_offerings keys based on what we know would really help the client.
+
+        Important guidelines:
+        - Maintain factual accuracy
+        - Preserve specific technical details and names
+        - Keep the same structure and format
+        - Ensure all dates and timelines are consistent
+        - Make relationships between different sections clear
+        - Standardize terminology throughout
+        - Focus on opportunities
+        
+        
+        Schema Definition:
+        {
+  "overview": {
+    "description": [
+      "High-level overview of the project's main purpose and goals"
+    ],
+    "scope": [
+      "Project's scope and boundaries"
+    ],
+    "timeline": {
+      "start_date": "Start date if mentioned in YYYY-MM-DD format",
+      "end_date": "End date if mentioned in YYYY-MM-DD format",
+      "duration": "Project duration if mentioned in months"
+    }
+  },
+  "stakeholders": {
+    "key_contacts_internal": [
+      "List of points of contact within our organization (Wizeline)"
+    ],
+    "key_contacts_client": [
+      "List of key stakeholders from the client/customer side"
+    ]
+  },
+  "progress": {
+    "current_status": "Overall project status",
+    "completed_milestones": [
+      "List of completed achievements"
+    ],
+    "ongoing_activities": [
+      "Current work in progress"
+    ],
+    "next_steps": [
+      "Planned next actions"
+    ],
+    "blockers": [
+      "Current impediments or blockers"
+    ]
+  },
+  "insights": {
+    "successes": [
+      "Things that are working well"
+    ],
+    "learnings": [
+      "Key learnings or discoveries"
+    ],
+    "recommendations": [
+      "Suggested improvements or actions"
+    ]
+  },
+  "challenges": {
+    "current_issues": [
+      "Active problems or challenges"
+    ],
+    "risks": [
+      "Potential future risks"
+    ]
+  },
+  "pain_points": {
+    "current_project_related": {
+      "technical": [
+        "Technical difficulties directly related to the current project delivery"
+      ],
+      "process": [
+        "Process issues affecting project execution"
+      ],
+      "resource": [
+        "Resource constraints impacting project progress"
+      ]
+    },
+    "client_organization": {
+      "technical": [
+        "Client's technical challenges or limitations, even beyond project scope"
+      ],
+      "process": [
+        "Client's organizational or process-related difficulties"
+      ],
+      "resource": [
+        "Client's resource or capability gaps"
+      ],
+      "business": [
+        "Client's business challenges or market pressures"
+      ]
+    },
+    "pain_point_keywords": [
+      "Keywords related to identified pain points, like 'Legacy System', 'Data Quality', 'Customer Experience'"
+    ]
+  },
+  "opportunities": {
+    "in_scope": {
+      "technical": [
+        "Technical opportunities within current project boundaries"
+      ],
+      "process": [
+        "Process improvements possible within project scope"
+      ],
+      "business": [
+        "Business value opportunities within current scope"
+      ]
+    },
+    "potential_expansion": {
+      "technical": [
+        "Technical opportunities beyond current project scope. Very detailed and justified."
+      ],
+      "process": [
+        "Process improvement opportunities beyond current scope"
+      ],
+      "business": [
+        "Additional business value opportunities identified"
+      ],
+      "new_projects": [
+        "Potential new project opportunities identified"
+      ]
+    }
+  },
+  "relationship_status": {
+    "overall_health": "General state of stakeholder relationships",
+    "communication_quality": "Quality and effectiveness of communication",
+    "engagement_level": "Level of stakeholder engagement",
+    "concerns": [
+      "Any relationship-related concerns"
+    ]
+  },
+  "technical_landscape": {
+    "current_stack": {
+      "languages": [
+        "Programming languages in use. Full names, no explanations."
+      ],
+      "frameworks": [
+        "Frameworks and libraries. Full names, no explanations."
+      ],
+      "cloud_services": [
+        "Cloud platforms and services. Full names, no explanations/disclaimers."
+      ],
+      "tools": [
+        "Development and operational tools. Full names, no explanations."
+      ]
+    }
+  },
+  "business_context": {
+    "industry_sector": "Client's primary industry",
+    "strategic_initiatives": [
+      "Key business initiatives or priorities"
+    ],
+    "decision_making": {
+      "process": "How technology decisions are made",
+      "key_influencers": [
+        "People who influence tech decisions"
+      ],
+      "approval_cycle": "Typical approval timeline for new projects"
+    }
+  },
+  "solution_keywords": {
+    "current_project": [
+      "Core technical and business terms that precisely describe the current solution. Focus on established industry terms and common technical concepts that would be immediately recognizable to other professionals in the field. Limit to 2-3 word phrases maximum.  Examples but not limited to: (RPA, Blockchain, IoT, Cloud Migration, Generative AI, Cloud Migration, DevOps, AI ChatBot, ETL, Data Lake, RAG)"
+    ],
+    "client_interests": [
+      "Specific technologies, methodologies, or solutions the client has explicitly mentioned or shown interest in during meetings and discussions. These should be concrete terms rather than general concepts, focusing on tools, platforms, or approaches they've inquired about. Examples but not limited to: (RPA, Blockchain, IoT, Cloud Migration, Generative AI, Cloud Migration, DevOps, AI ChatBot, ETL, Data Lake, RAG)"
+    ],
+    "pain_point_related": [
+      "Key terms that capture the essence of identified challenges. Use standardized industry terminology rather than project-specific descriptions. For example, use 'Legacy System' rather than 'Old System Problems'. These terms should be immediately recognizable across the industry"
+    ],
+    "opportunity_related": [
+      "Forward-looking terms that describe potential solutions/technologies or improvements. Focus on established industry terms that describe proven approaches or technologies, rather than generic descriptions. These should align with current industry trends and best practices. Examples but not limited to: (RPA, Blockchain, IoT, Cloud Migration, Generative AI, Cloud Migration, DevOps, AI ChatBot, ETL, Data Lake, RAG)"
+    ]
+  },
+  "hypothetical_offerings": [
+    {
+      "description": "Detailed description of the hypothetical offering and the specific problem it solves. Only feasible, realistic offerings should be considered",
+      "why": "Really detailed explanation/justification of why this offering is relevant to the client's needs",
+      "how": "Detailed explanation of how the offering will be implemented or delivered",
+      "rationale": {
+        "impact_reasons": [
+          "Specific, concrete analysis on the impact points, referencing impact_components"
+        ],
+        "effort_reasons": [
+          "Specific, concrete analysis on the effort score was given, referencing effort_components"
+        ]
+      },
+      "impact_components": {
+        "business_impact": "Integer from 0-100 considering revenue, efficiency, strategic value",
+        "technical_impact": "Integer from 0-100 considering system improvements, modernization",
+        "organizational_impact": "Integer from 0-100 considering process, culture, productivity"
+      },
+      "effort_components": {
+        "technical_complexity": "Integer from 0-100 considering implementation difficulty",
+        "resource_needs": "Integer from 0-100 considering team size, skills, duration",
+        "organizational_change": "Integer from 0-100 considering process changes, training"
+      },
+      "impact_level": "Integer from 0-100, calculated as weighted average of the impact_components. Scores should be precise rather than defaulting to multiples of 5",
+      "effort_level": "Integer from 0-100, calculated as weighted average of the effort_components. Use precise scores like 67, 82, 94 to reflect careful evaluation",
+      "acceptance_probability": {
+        "reasons": [
+          "Detailed justification for the probability score, must reference component_scores"
+        ],
+        "component_scores": {
+          "budget_fit": "Integer from 0-100",
+          "strategic_alignment": "Integer from 0-100",
+          "organizational_readiness": "Integer from 0-100"
+        },
+        "score": "Integer from 0-100, reflecting detailed consideration of factors below"
+      }
+    }
+  ]
+}
+
+        Original merged profile:
+        {
+  "overview": {
+    "description": [
+      "The project involves the development and implementation of a Portable & Configurable Retrieval Augmented Generation System for KPMG, focusing on advanced document processing, retrieval, and user interaction.",
+      "The Multi-RAG project is focused on developing a system that allows users to create Knowledge Assistants by selecting a cloud profile and configuring indexing, querying, and ranking parameters.",
+      "The project aims to implement a solution that facilitates seamless knowledge transfer and runs efficiently within the client's environment."
+    ],
+    "scope": [
+      "The system is designed to handle data acquisition, cleansing, chunking, metadata extraction, indexing, and retrieval functionalities across multiple document formats.",
+      "Development of a system for creating Knowledge Assistants with configurable parameters and cloud profiles.",
+      "The project includes the development of a solution with potential expansions into multi-tenant architecture, micro-services architecture, and RAG enhancements."
+    ],
+    "timeline": {
+      "start_date": "2024-06-24",
+      "end_date": "2024-10-30",
+      "duration": "4"
+    }
+  },
+  "stakeholders": {
+    "key_contacts_internal": [
+      "aldo.ramirez@wizeline.com"
+    ],
+    "key_contacts_client": [
+      "Swami Chandrasekaran <Swami@kpmg.com>"
+    ]
+  },
+  "progress": {
+    "current_status": "Concerned about meeting project deadlines with the current progress.",
+    "completed_milestones": [
+      "Initial setup of architecture, infrastructure, and repository.",
+      "Development of ingestion, indexing, and storing subsystems.",
+      "Querying and retrieval functionalities with user interface prototypes.",
+      "Completion of containerized profiles, API development, and final UI."
+    ],
+    "ongoing_activities": [
+      "Dealing with difficulties in deploying infrastructure as code."
+    ],
+    "next_steps": [
+      "Address the resource needs for multi-tenant architecture and micro-services."
+    ],
+    "blockers": [
+      "Client's internal policies causing delays in permissions and credentials."
+    ]
+  },
+  "insights": {
+    "successes": [
+      "Successfully developed a user-friendly interface and advanced retrieval functionalities."
+    ],
+    "learnings": [
+      "Knowledge transfer is critical for client satisfaction."
+    ],
+    "recommendations": [
+      "Enhance performance of knowledge assistants using Wizeline's expertise."
+    ]
+  },
+  "challenges": {
+    "current_issues": [
+      "Scope creep due to the client's request for SRE services."
+    ],
+    "risks": [
+      "Potential delays in project delivery due to internal client policies."
+    ]
+  },
+  "pain_points": {
+    "current_project_related": {
+      "technical": [
+        "Difficulties with deploying infrastructure as code."
+      ],
+      "process": [
+        "Slow movement of technical teams due to internal policies."
+      ],
+      "resource": [
+        "Skill gaps in multi-tenant architecture and micro-services."
+      ]
+    },
+    "client_organization": {
+      "technical": [
+        "Constrained by internal KPMG policy."
+      ],
+      "process": [
+        "Slow approval processes for permissions and credentials."
+      ],
+      "resource": [],
+      "business": []
+    },
+    "pain_point_keywords": [
+      "Scope Creep",
+      "Internal Policy Constraints",
+      "Deployment Challenges"
+    ]
+  },
+  "opportunities": {
+    "in_scope": {
+      "technical": [
+        "Enhancements in RAG performance."
+      ],
+      "process": [],
+      "business": []
+    },
+    "potential_expansion": {
+      "technical": [
+        "Multi-tenant architecture and micro-services architecture."
+      ],
+      "process": [],
+      "business": [],
+      "new_projects": []
+    }
+  },
+  "relationship_status": {
+    "overall_health": "Concerned but engaged.",
+    "communication_quality": "Needs improvement due to internal policy constraints.",
+    "engagement_level": "Moderate, with a focus on knowledge transfer.",
+    "concerns": [
+      "Client's satisfaction with the project's progress."
+    ]
+  },
+  "technical_landscape": {
+    "current_stack": {
+      "languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "React",
+        "Angular"
+      ],
+      "cloud_services": [
+        "Azure",
+        "Google Cloud",
+        "AWS",
+        "GCP"
+      ],
+      "tools": [
+        "LlamaIndex",
+        "LlamaParse",
+        "TruLens"
+      ]
+    }
+  },
+  "business_context": {
+    "industry_sector": "Consulting",
+    "strategic_initiatives": [],
+    "decision_making": {
+      "process": "Decisions are influenced by internal policies and approval processes.",
+      "key_influencers": [],
+      "approval_cycle": "Typically slow due to internal constraints."
+    }
+  },
+  "solution_keywords": {
+    "current_project": [
+      "Retrieval Augmented Generation",
+      "Document Processing",
+      "Cloud Portability",
+      "Retrieval-Augmented Generation",
+      "Knowledge Transfer",
+      "Infrastructure as Code"
+    ],
+    "client_interests": [
+      "Azure"
+    ],
+    "pain_point_related": [
+      "Deployment Challenges",
+      "Internal Policy Constraints"
+    ],
+    "opportunity_related": [
+      "RAG Enhancements"
+    ]
+  },
+  "hypothetical_offerings": []
+}
+
+        Return the refined profile as a JSON object with the same structure.
+        Focus on improving clarity and coherence while preserving all factual information.
+        
+        Only return the JSON, ready for json.loads() in Python, without markdown notation:
+        

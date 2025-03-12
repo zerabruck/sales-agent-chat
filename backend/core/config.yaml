@@ -1,0 +1,38 @@
+llms:
+  main:
+    type: 'groq'
+    model_id: 'llama3-70b-8192'
+    aws_region: 'us-east-1'
+    temperature: 0
+#  main:
+#    type: 'openai'
+#    model_id: 'gpt-4o'
+#    aws_region: 'us-east-1'
+#    temperature: 0
+#  main:
+#    type: 'bedrock'
+#    model_id: 'us.anthropic.claude-3-5-sonnet-20241022-v2:0'
+#    aws_region: 'us-east-1'
+#    temperature: 0
+  fallback:
+    type: 'groq'
+    model_id: 'llama3-70b-8192'
+    aws_region: 'us-east-1'
+    temperature: 0
+
+#  main:
+#    type: 'openai'
+#    model_id: 'gpt-4o'
+#    aws_region: 'us-east-1'
+#    temperature: 0
+#  main:
+#    type: 'groq'
+#    model_id: 'llama-3.1-70b-versatile'
+#    aws_region: 'us-east-1'
+#    temperature: 0
+llm-tracing:
+  type: 'langfuse' # 'langfuse' or 'none'
+
+#      host: 'localhost'
+#      port: 9200
+#      index_name: 'kantar_index'

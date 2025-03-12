@@ -1,0 +1,16 @@
+boto3
+openai
+python-dotenv
+fastapi
+uvicorn
+python-multipart
+langchain-aws
+langchain
+langfuse
+sse-starlette
+langchain-groq
+langchain-openai
+rapidfuzz
+langchain-community
+faiss-cpu
+numpy
