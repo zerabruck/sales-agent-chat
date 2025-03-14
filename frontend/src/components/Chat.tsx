@@ -5,6 +5,8 @@ import { Message as MessageType } from "../types";
 import Message from "./Message";
 import { SSEClient } from "../lib/sse";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import Loader from "./Loader";
+import AssistantLoader from "./AssistantLoader";
 
 export default function Chat() {
   const [messages, setMessages] = useState<MessageType[]>([]);
@@ -16,6 +18,7 @@ export default function Chat() {
 
   useEffect(() => {
     sseClientRef.current = new SSEClient((event) => {
+      setIsLoading(false)
       switch (event.type) {
         case "chunk":
           setMessages((prev) => {
@@ -78,8 +81,9 @@ export default function Chat() {
   }, [messages]);
 
   const handleSubmit = (e: React.FormEvent) => {
+    setIsLoading(true);
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!input.trim()) return;
 
     const userMessage: MessageType = {
       id: uuidv4(),
@@ -89,7 +93,6 @@ export default function Chat() {
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
-    setIsLoading(false);
 
     if (sseClientRef.current) {
       sseClientRef.current.connect(input, sessionId);
@@ -113,15 +116,17 @@ export default function Chat() {
         {messages.map((message, index) => (
           <div
             key={message.id}
-            className={`${messages.length === index + 1 && "mb-52"}`}
+            className={`${messages.length === index + 1 && !isLoading && "mb-70"}`}
           >
             <Message
               key={message.id}
               message={message}
               onSelectTimeSlot={handleSelectTimeSlot}
             />
+            
           </div>
         ))}
+        {isLoading && <AssistantLoader />}
         <div ref={messagesEndRef} />
       </div>
       <div className={`${messages.length !== 0 && "fixed bottom-0"} w-full`}>
@@ -141,7 +146,7 @@ export default function Chat() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me about car models, pricing, or schedule a test drive..."
               className="flex-1 rounded-lg text-white borer border-gry-600 px-4 py-2 focus:outline-none focus:border-[#381a2a] "
-              disabled={isLoading}
+              // disabled={isLoading}
             />
             <button
               type="submit"
