@@ -16,7 +16,7 @@ export class SSEClient {
 
     this.abortController = new AbortController();
 
-    fetch('http://localhost:8000/query', {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/query`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,11 +27,6 @@ export class SSEClient {
       }),
       signal: this.abortController.signal
     }).then(response => {
-      console.log("this is the resp", response)
-      // const reader = response.body?.getReader();
-      // const decoder = new TextDecoder();
-      // let buffer = '';
-
       const processText = (lines: string[]) => {
         let event = '';
         let data = '';
@@ -76,20 +71,21 @@ export class SSEClient {
         }
         
       };
-
-    
-      console.log("this is the resp", response)
-  
-      // Remove getReader() since we are using pipeThrough.
       const decoderStream = new TextDecoderStream();
       const stream = response.body?.pipeThrough(decoderStream);
       if (!stream) return;
     
       const pumpSec = async () => {
-        for await (const chunk of stream) {
-          const lines = chunk.split('\n');
-          processText(lines)
-          
+        const reader = stream.getReader();
+        try {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            const lines = value.split('\n');
+            processText(lines);
+          }
+        } finally {
+          reader.releaseLock();
         }
       };
       pumpSec();

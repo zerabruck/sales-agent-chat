@@ -10,7 +10,6 @@ export function parseWeather(data: string): ParsedWeather {
       location: match[1],
       temperature: match[2],
       unit: match[3],
-      // You could derive conditions from additional data in the future.
       conditions: '',
     };
   }
@@ -48,7 +47,6 @@ export function parseTimeSlots(data: string): TimeSlot[] {
     available: true
   }));
 };
-
 export function parseConfirmationData(data: string): AppointmentConfirmationData {
   let cleaned = data.trim();
   // Remove wrapping quotes if present
@@ -61,19 +59,29 @@ export function parseConfirmationData(data: string): AppointmentConfirmationData
   }
   // Replace single quotes with double quotes
   const jsonStr = cleaned.replace(/'/g, '"');
-
-  let result: any = {};
+  let result: unknown = {};
   try {
     result = JSON.parse(jsonStr);
   } catch (error) {
     console.error('Error parsing appointment confirmation JSON:', error);
   }
-  // Map Spanish keys to our expected keys:
+  if (typeof result !== 'object' || result === null) {
+    return {
+      appointmentId: 'N/A',
+      date: '',
+      time: '',
+      dealership: '',
+      customerMessage: ''
+    };
+  }
+
+  const dataObj = result as { [key: string]: unknown };
+
   return {
-    appointmentId: result.confirmacion_id || 'N/A',
-    date: result.fecha || '',
-    time: result.hora || '',
-    dealership: result.modelo || '',
-    customerMessage: result.mensaje || ''
+    appointmentId: typeof dataObj.confirmacion_id === 'string' ? dataObj.confirmacion_id : 'N/A',
+    date: typeof dataObj.fecha === 'string' ? dataObj.fecha : '',
+    time: typeof dataObj.hora === 'string' ? dataObj.hora : '',
+    dealership: typeof dataObj.modelo === 'string' ? dataObj.modelo : '',
+    customerMessage: typeof dataObj.mensaje === 'string' ? dataObj.mensaje : ''
   };
-};
+}

@@ -1,21 +1,23 @@
-FROM node:18-alpine
-
+FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Expose the port
+FROM node:18-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+
+COPY --from=builder /app/next.config.ts ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "start"] 
+
+CMD ["npm", "start"]

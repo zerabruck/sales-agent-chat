@@ -6,7 +6,6 @@ interface WeatherProps {
   data: string;
 }
 
-
 export default function Weather({ data }: WeatherProps) {
   const { location, temperature, unit, conditions } = parseWeather(data);
   // For the current example, we treat weather as good if the unit is Celsius 
@@ -20,19 +19,18 @@ export default function Weather({ data }: WeatherProps) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold pr-2">Weather in {location}</h3>
         {isGoodWeather ? (
-          <SunIcon className="h-6 w-6  text-yellow-500" />
+          <SunIcon className="h-6 w-6 text-yellow-500" />
         ) : (
           <CloudIcon className="h-6 w-6 text-gray-500" />
         )}
       </div>
       <div className="space-y-2">
         <p className="text-3xl text-center font-bold">
-          {temperature} <span className='text-[#A64D79]'>{unit && `\u00b0${unit}`}</span>
+          {temperature} <span className="text-[#A64D79]">{unit && `\u00b0${unit}`}</span>
         </p>
-        {
-          conditions &&
-        <p className="text-gray-600">{conditions}</p>
-        }
+        {conditions && (
+          <p className="text-gray-500">{conditions}</p>
+        )}
       </div>
     </div>
   );
